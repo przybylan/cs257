@@ -9,8 +9,11 @@ import booksdatasource
 import unittest
 
 class BooksDataSourceTester(unittest.TestCase):
+
+
+
     def setUp(self):
-        self.data_source = booksdatasource.BooksDataSource('books1.csv')
+        self.data_source = booksdatasource.BooksDataSource('books1.csv.csv')
 
     def tearDown(self):
         pass
@@ -25,10 +28,24 @@ class BooksDataSourceTester(unittest.TestCase):
         authors = []
         self.assertEqual(authors, booksdatasource.BooksDataSource.authors("Smith"))
 
+    # Checks that the return of an unspecified call to author returns all the
+    def test_authors_return_full(self):
+        auth1 = booksdatasource.Author("Baldwin", "James", 1924, 1987)
+        auth2 = booksdatasource.Author("Brontë", "Charlotte", 1816, 1855)
+        auth3 = booksdatasource.Author("Brontë", "Ann", 1820, 1849)
+        authors = [auth1, auth3, auth2]
+        self.assertEqual(authors, booksdatasource.BooksDataSource.authors(self))
+
     def test_author_return_value(self):
         auth1 = booksdatasource.Author("Baldwin", "James", 1924, 1987)
         authors = [auth1]
         self.assertEqual(authors, booksdatasource.BooksDataSource.authors("Baldwin"))
+
+    def test_author_return_value_half(self):
+        auth1 = booksdatasource.Author("Baldwin", "James", 1924, 1987)
+        auth2 = booksdatasource.Author("Brontë", "Charlotte", 1816, 1855)
+        authors = [auth1]
+        self.assertEqual(authors, booksdatasource.BooksDataSource.authors("Bald"))
 
     def test_author_order(self):
         auth1 = booksdatasource.Author("Brontë", "Ann", 1820, 1849)
@@ -37,8 +54,28 @@ class BooksDataSourceTester(unittest.TestCase):
         self.assertEqual(authors, booksdatasource.BooksDataSource.authors("Brontë"))
 
     def test_book_return(self):
-        books1 = []
-        self.assertEqual(books1,booksdatasource.BooksDataSource.books("Blue"))
+        bookslist = []
+        self.assertEqual(bookslist,booksdatasource.BooksDataSource.books("Blue"))
+
+    # def test_book_return_full(self):
+    #     auth1 = booksdatasource.Author("Baldwin", "James", 1924, 1987)
+    #     auth2 = booksdatasource.Author("Brontë", "Charlotte", 1816, 1855)
+    #     auth3 = booksdatasource.Author("Brontë", "Ann", 1820, 1849)
+    #     auth4 = booksdatasource.Author("Orange", "Tommy", 1982)
+    #     auth5 = booksdatasource.Author("Willis", "Connie", 1945)
+    #     auth6 = booksdatasource.Author("Murakami", "Haruki", 1949)
+    #     authors = [auth1, auth3, auth2]
+    #     a1 = [auth1]
+    #     a2 = [auth2]
+    #     a3 = [auth3]
+    #     a4 = [auth4]
+    #     a5 = [auth5]
+    #     a6 = [auth6]
+    #     book1 = booksdatasource.Book("The Fire Next Time", 1963, authors)
+    #     book2 = booksdatasource.Book("There, There", 2018, a)
+    #
+    #     bookslist = []
+    #     self.assertEqual(bookslist,booksdatasource.BooksDataSource.books("Blue"))
 
     def test_book_return_value(self):
         auth1 = booksdatasource.Author("Baldwin", "James", 1924, 1987)
@@ -67,8 +104,8 @@ class BooksDataSourceTester(unittest.TestCase):
         auth1 = booksdatasource.Author("Baldwin", "James", 1924, 1987)
         author_b = [auth1]
         book1 = booksdatasource.Book("The Fire Next Time", 1963, author_b)
-        bookListYrs = [book1]
-        self.assertEqual(bookListYrs, booksdatasource.BooksDataSource.books_between_years(1963, 1963))
+        booklistyrs = [book1]
+        self.assertEqual(booklistyrs, booksdatasource.BooksDataSource.books_between_years(1963, 1963))
 
     def test_booksbwyrs_order(self):
         auth1 = booksdatasource.Author("Willis", "Connie", 1945)
@@ -77,12 +114,12 @@ class BooksDataSourceTester(unittest.TestCase):
         author_m = [auth2]
         book1 = booksdatasource.Book("Blackout", 2010, author_w)
         book2 = booksdatasource.Book("1Q84", 2009, author_m)
-        bookListyrs = [book2, book1]
-        self.assertEqual(bookListyrs, booksdatasource.BooksDataSource.books_between_years(2009, 2010))
+        booklistyrs = [book2, book1]
+        self.assertEqual(booklistyrs, booksdatasource.BooksDataSource.books_between_years(2009, 2010))
 
 
 
-
+# Test for when the list returns how many we need exact, when there is only a partial name, name that doesn't exist
 
 if __name__ == '__main__':
     unittest.main()
