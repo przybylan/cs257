@@ -9,6 +9,7 @@
 
 import csv
 
+
 class Author:
     def __init__(self, surname='', given_name='', birth_year=None, death_year=None):
         self.surname = surname
@@ -19,6 +20,7 @@ class Author:
     def __eq__(self, other):
         ''' For simplicity, we're going to assume that no two authors have the same name. '''
         return self.surname == other.surname and self.given_name == other.given_name
+
 
 class Book:
     def __init__(self, title='', publication_year=None, authors=[]):
@@ -34,8 +36,13 @@ class Book:
             thing as "same book". '''
         return self.title == other.title
 
+
 class BooksDataSource:
+    book_list = []
+    author_list = []
+
     def __init__(self, books_csv_file_name):
+
         ''' The books CSV file format looks like this:
 
                 title,publication_year,author_description
@@ -54,7 +61,7 @@ class BooksDataSource:
         global author_list
         book_auth_list = []
         with open(books_csv_file_name) as book_file:
-            book_file = book_file.readLines()
+            book_file = book_file.readlines()
 
         for line in book_info:
             temp_split = line.split(",")
@@ -66,23 +73,23 @@ class BooksDataSource:
                     year1 = int(temp_auth_string[2][1:5])
                     year2 = temp_auth_string[2][6:-1]
                     if len(year2) == 0:
-                        year2 == None
-                    authorX = Author(temp_auth_string[1], temp_auth_string[0], year1, year2)
-                    author_list.append(authorX)
-                    book_auth_list.append(authorX)
+                        year2 = None
+                    new_author = Author(temp_auth_string[1], temp_auth_string[0], year1, year2)
+                    author_list.append(new_author)
+                    book_auth_list.append(new_author)
 
             else:
                 temp_auth_string = author.split(" ")
                 year1 = int(temp_auth_string[2][1:5])
                 year2 = temp_auth_string[2][6:-1]
                 if len(year2) == 0:
-                    year2 == None
-                authorX = Author(temp_auth_string[1], temp_auth_string[0], year1, year2)
-                author_list.append(authorX)
-                book_auth_list.append(authorX)
+                    year2 = None
+                new_author = Author(temp_auth_string[1], temp_auth_string[0], year1, year2)
+                author_list.append(new_author)
+                book_auth_list.append(new_author)
 
-            newBook = Book(temp_split[0], temp_split[1], book_auth_list)
-            book_list.append(newBook)
+            new_book = Book(temp_split[0], temp_split[1], book_auth_list)
+            book_list.append(new_book)
         pass
 
     def authors(self, search_text=None):
@@ -91,6 +98,8 @@ class BooksDataSource:
             returns all of the Author objects. In either case, the returned list is sorted
             by surname, breaking ties using given name (e.g. Ann Brontë comes before Charlotte Brontë).
         '''
+        global author_list
+        global book_list
         result_list = []
         if search_text is None:
             for author in author_list:
@@ -113,7 +122,6 @@ class BooksDataSource:
 
         return result_list
 
-
     def books(self, search_text=None, sort_by='title'):
         ''' Returns a list of all the Book objects in this data source whose
             titles contain (case-insensitively) search_text. If search_text is None,
@@ -133,9 +141,9 @@ class BooksDataSource:
                     new_book_list.append(book)
 
         if sort_by == 'year':
-            new_book_list.sort(key = book.publication_year)
+            new_book_list.sort(key=book.publication_year)
         else:
-            new_book_list.sort(key = book.title)
+            new_book_list.sort(key=book.title)
 
         return new_book_list
 
