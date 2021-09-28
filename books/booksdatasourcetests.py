@@ -13,7 +13,7 @@ class BooksDataSourceTester(unittest.TestCase):
 
 
     def setUp(self):
-        self.data_source = booksdatasource.BooksDataSource('books1.csv.csv')
+        self.data_source = booksdatasource.BooksDataSource('books1.csv')
 
     def tearDown(self):
         pass
