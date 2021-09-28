@@ -49,6 +49,40 @@ class BooksDataSource:
             suitable instance variables for the BooksDataSource object containing
             a collection of Author objects and a collection of Book objects.
         '''
+        book_info = []
+        global book_list
+        global author_list
+        book_auth_list = []
+        with open(books_csv_file_name) as book_file:
+            book_file = book_file.readLines()
+
+        for line in book_info:
+            temp_split = line.split(",")
+            # for figuring out the author/authors of the book
+            if temp_split[2].__contains__('and'):
+                temp_split2 = temp_split[2].split(' and ')
+                for author in temp_split2:
+                    temp_auth_string = author.split(" ")
+                    year1 = int(temp_auth_string[2][1:5])
+                    year2 = temp_auth_string[2][6:-1]
+                    if len(year2) == 0:
+                        year2 == None
+                    authorX = Author(temp_auth_string[1], temp_auth_string[0], year1, year2)
+                    author_list.append(authorX)
+                    book_auth_list.append(authorX)
+
+            else:
+                temp_auth_string = author.split(" ")
+                year1 = int(temp_auth_string[2][1:5])
+                year2 = temp_auth_string[2][6:-1]
+                if len(year2) == 0:
+                    year2 == None
+                authorX = Author(temp_auth_string[1], temp_auth_string[0], year1, year2)
+                author_list.append(authorX)
+                book_auth_list.append(authorX)
+
+            newBook = Book(temp_split[0], temp_split[1], book_auth_list)
+            book_list.append(newBook)
         pass
 
     def authors(self, search_text=None):
@@ -57,7 +91,28 @@ class BooksDataSource:
             returns all of the Author objects. In either case, the returned list is sorted
             by surname, breaking ties using given name (e.g. Ann Brontë comes before Charlotte Brontë).
         '''
-        return []
+        result_list = []
+        if search_text is None:
+            for author in author_list:
+                # author_name = author.given_name + author.surname
+                result_list.append(author)
+
+        else:
+            for author in author_list:
+                if author.given_name.__contains__(search_text) | author.surname.__contains__(search_text):
+                    # author_name = author.given_name + author.surname
+                    result_list.append(author)
+
+        # if len(result_List) == 0:
+        #     print("No authors were found")
+        # else:
+        #     result_List.sorted()
+        #     print("Authors found for search : ", search_text, " are : ")
+        #     for author in result_List:
+        #         print("\n", author.given_name, " ", author.surname)
+
+        return result_list
+
 
     def books(self, search_text=None, sort_by='title'):
         ''' Returns a list of all the Book objects in this data source whose
