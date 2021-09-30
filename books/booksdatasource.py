@@ -158,4 +158,23 @@ class BooksDataSource:
             during start_year should be included. If both are None, then all books
             should be included.
         '''
-        return []
+        new_book_list = []
+        if start_year != None and end_year != None:
+            for book in self.book_list:
+                if book.publication_year >= start_year and book.publication_year <= end_year:
+                    new_book_list.append(book)
+        elif start_year != None:
+            for book in self.book_list:
+                if book.publication_year >= start_year:
+                    new_book_list.append(book)
+        elif end_year != None:
+            for book in self.book_list:
+                if book.publication_year <= end_year:
+                    new_book_list.append(book)
+        else:
+            for book in self.book_list:
+                new_book_list.append(book)
+
+        new_book_list.sort(key=book.publication_year)
+
+        return new_book_list
