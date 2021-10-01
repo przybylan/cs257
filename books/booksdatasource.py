@@ -8,6 +8,7 @@
 '''
 
 import csv
+import operator
 
 
 class Author:
@@ -38,9 +39,6 @@ class Book:
 
 
 class BooksDataSource:
-    book_list = []
-    author_list = []
-
     def __init__(self, books_csv_file_name):
 
         ''' The books CSV file format looks like this:
@@ -56,41 +54,88 @@ class BooksDataSource:
             suitable instance variables for the BooksDataSource object containing
             a collection of Author objects and a collection of Book objects.
         '''
+        self.prndbg = True
         book_info = []
-        global book_list
-        global author_list
+        self.book_list = []
+        self.author_list = []
         book_auth_list = []
         with open(books_csv_file_name) as book_file:
             book_file = book_file.readlines()
-
-        for line in book_info:
-            temp_split = line.split(",")
+        if self.prndbg:
+            print("File has been read length of file = ", len(book_file))
+        for line in csv.reader(book_file, quotechar='"', delimiter=",", skipinitialspace=True):
+            print(line)
+            # print(line[2].split('-'))
+            if self.prndbg:
+                print("Line in file before split : ", line)
+            # temp_split = line.split(",")
             # for figuring out the author/authors of the book
-            if temp_split[2].__contains__('and'):
-                temp_split2 = temp_split[2].split(' and ')
-                for author in temp_split2:
-                    temp_auth_string = author.split(" ")
-                    year1 = int(temp_auth_string[2][1:5])
-                    year2 = temp_auth_string[2][6:-1]
-                    if len(year2) == 0:
-                        year2 = None
-                    new_author = Author(temp_auth_string[1], temp_auth_string[0], year1, year2)
-                    author_list.append(new_author)
-                    book_auth_list.append(new_author)
+            # if 'and' in line[2]:
+            if self.prndbg:
+                print("Line in temp_split[2] before split : ", line[2])
 
-            else:
-                temp_auth_string = author.split(" ")
-                year1 = int(temp_auth_string[2][1:5])
-                year2 = temp_auth_string[2][6:-1]
+            temp_split2 = line[2].split(' and ')
+            book_auth_list = []
+            for auth_info in temp_split2:
+                if self.prndbg:
+                    print("Line in temp_split2 before split : ", auth_info)
+                temp_auth_string = auth_info.split('(')
+                name = temp_auth_string[0].strip().split(" ")
+                first_name = ""
+                # for name_component in name[:-1]:
+                first_name = " ".join(name[:-1])
+                last_name = name[-1]
+                year_split = temp_auth_string[1].strip().strip(')').split('-')
+                year1 = year_split[0]
+                year2 = year_split[1]
+                # author_str = temp_auth_string[0].split(" ")
+                # year1 = author_str[2][-1:]
+                # year2 = temp_auth_string[2][:-1]
+                # year1 = int(temp_auth_string[1][:3])
+                # year1 = temp_yr_string[0]
+                # year2 = temp_auth_string[1][5:-1]
+                # year2 = temp_yr_string[1][:-3]
                 if len(year2) == 0:
                     year2 = None
-                new_author = Author(temp_auth_string[1], temp_auth_string[0], year1, year2)
-                author_list.append(new_author)
+                if not year1:
+                    year1 = None
+                new_author = Author(last_name, first_name, year1, year2)
+                self.author_list.append(new_author)
                 book_auth_list.append(new_author)
 
-            new_book = Book(temp_split[0], temp_split[1], book_auth_list)
-            book_list.append(new_book)
-        pass
+            # else:
+            #     temp_auth_string = line[2].split('(')
+            #     name = temp_auth_string[0].split(" ")
+            #     first_name = " "
+            #     for i in range(len(name) - 2):
+            #         first_name = first_name + name[i]
+            #     last_name = name[len(name) - 1]
+            #     year_split = temp_auth_string[1].split('-')
+            #     year1 = year_split[0]
+            #     year2 = year_split[1][:-3]
+            #     # temp_auth_string = auth_info.split('-')
+            #     # author_str = temp_auth_string[0].split(" ")
+            #     # year1 = author_str[2][-1:]
+            #     # year2 = temp_auth_string[2][:-1]
+            #     # first_name = ""
+            #     # while ''author_str[i]
+            #     #     first_name = first_name + name_split[i]
+            #     # last_name = name_split[len(name_split)-1]
+            #     # temp_yr_string = temp_auth_string[0].split("-")
+            #     # # year1 = int(temp_auth_string[1][:3])
+            #     # year1 = temp_yr_string[0]
+            #     # # year2 = temp_auth_string[1][5:-1]
+            #     # year2 = temp_yr_string[0][:-3]
+            #     # if len(year2) == 0:
+            #     #     year2 = None
+            #     new_author = Author(last_name, first_name, year1, year2)
+            #     self.author_list.append(new_author)
+            #     book_auth_list.append(new_author)
+
+            new_book = Book(line[0], line[1], book_auth_list)
+            self.book_list.append(new_book)
+        if self.prndbg:
+            print(self.author_list)
 
     def authors(self, search_text=None):
         ''' Returns a list of all the Author objects in this data source whose names contain
@@ -98,17 +143,17 @@ class BooksDataSource:
             returns all of the Author objects. In either case, the returned list is sorted
             by surname, breaking ties using given name (e.g. Ann Brontë comes before Charlotte Brontë).
         '''
-        global author_list
-        global book_list
+        # author_list
+        # book_list
         result_list = []
         if search_text is None:
-            for author in author_list:
+            for author in self.author_list:
                 # author_name = author.given_name + author.surname
                 result_list.append(author)
 
         else:
-            for author in author_list:
-                if author.given_name.__contains__(search_text) | author.surname.__contains__(search_text):
+            for author in self.author_list:
+                if search_text.lower() in author.given_name.lower() or search_text.lower() in author.surname.lower():
                     # author_name = author.given_name + author.surname
                     result_list.append(author)
 
@@ -134,16 +179,21 @@ class BooksDataSource:
                 default -- same as 'title' (that is, if sort_by is anything other than 'year'
                             or 'title', just do the same thing you would do for 'title')
         '''
+        # could use sorted instead
         new_book_list = []
-        if search_text != None:
+        if search_text is not None:
             for book in self.book_list:
-                if lower(book.title).__contains__(search_text):
+                if book.title.lower().__contains__(search_text):
                     new_book_list.append(book)
+            if sort_by == 'year':
+                new_book_list.sort(key=operator.attrgetter("publication_year"))
+            else:
+                new_book_list.sort(key=lambda b: b.title)
 
-        if sort_by == 'year':
-            new_book_list.sort(key=book.publication_year)
-        else:
-            new_book_list.sort(key=book.title)
+        # if sort_by == 'year':
+        #     new_book_list.sort(key=book.publication_year)
+        # else:
+        #     new_book_list.sort(key=book.title)
 
         return new_book_list
 
