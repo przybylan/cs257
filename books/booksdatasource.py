@@ -238,8 +238,11 @@ class BooksDataSource:
         new_book_list = []
         if search_text is not None:
             for book in self.book_list:
-                if book.title.lower().__contains__(search_text):
+                if book.title.lower().__contains__(search_text.lower()):
                     new_book_list.append(book)
+        else:
+            for book in self.book_list:
+                new_book_list.append(book)
 
         if sort_by == 'year':
             new_book_list = sorted(new_book_list, key=cmp_to_key(self.book_compare_year))

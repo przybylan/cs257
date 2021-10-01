@@ -51,7 +51,8 @@ class BooksDataSourceTester(unittest.TestCase):
 
         auth1 = booksdatasource.Author("Brontë", "Charlotte", 1816, 1855)
         auth2 = booksdatasource.Author("Brontë", "Ann", 1820, 1849)
-        authors = [auth2, auth1]
+        auth3 = booksdatasource.Author("Brontë", "Emily", 1818, 1848)
+        authors = [auth2, auth1, auth3]
         print("authors list ", authors)
         print("function return list ", self.data_source.authors("Brontë"))
         # if length is the same then compare by checking the object eq
