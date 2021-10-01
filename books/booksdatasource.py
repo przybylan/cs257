@@ -189,13 +189,13 @@ class BooksDataSource:
 
         return result_list
 
-    def book_compare_yr(self, book1, book2):
+    def book_compare_year(self, book1, book2):
 
         if book1.publication_year > book2.publication_year:
             return 1
         elif book1.publication_year < book2.publication_year:
             return -1
-        elif book1.publication_year == book2.publication_year:
+        else:
             if book1.title > book2.title :
                 return 1
             elif book1.title < book2.title:
@@ -203,6 +203,18 @@ class BooksDataSource:
             else:
                 return 0
 
+    def book_compare_title(self, book1, book2):
+        
+        if book1.title > book2.title:
+            return 1
+        elif book1.title < book2.title:
+            return -1
+        else:
+            if book1.publication_year > book2.publication_year:
+                return 1
+            elif book1.publication_year < book2.publication_year:
+                return -1
+            else: return 0
 
     def books(self, search_text=None, sort_by='title'):
         ''' Returns a list of all the Book objects in this data source whose
@@ -216,21 +228,16 @@ class BooksDataSource:
                 default -- same as 'title' (that is, if sort_by is anything other than 'year'
                             or 'title', just do the same thing you would do for 'title')
         '''
-        # could use sorted instead
         new_book_list = []
         if search_text is not None:
             for book in self.book_list:
                 if book.title.lower().__contains__(search_text):
                     new_book_list.append(book)
-            if sort_by == 'year':
-                new_book_list.sort(key=operator.attrgetter("publication_year"))
-            else:
-                new_book_list.sort(key=lambda b: b.title)
 
-        # if sort_by == 'year':
-        #     new_book_list.sort(key=book.publication_year)
-        # else:
-        #     new_book_list.sort(key=book.title)
+        if sort_by == 'year':
+            new_book_list = sorted(new_book_list, key=cmp_to_key(self.book_compare_year))
+        else:
+            new_book_list = sorted(new_book_list, key=cmp_to_key(self.book_compare_title))
 
         return new_book_list
 
@@ -263,6 +270,6 @@ class BooksDataSource:
             for book in self.book_list:
                 new_book_list.append(book)
 
-        new_book_list = sorted(new_book_list, key=cmp_to_key(self.book_compare_yr))
+        new_book_list = sorted(new_book_list, key=cmp_to_key(self.book_compare_year))
 
         return new_book_list

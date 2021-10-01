@@ -98,8 +98,9 @@ class BooksDataSourceTester(unittest.TestCase):
         book1 = booksdatasource.Book("The Fire Next Time", 1963, author_b)
         book2 = booksdatasource.Book("There, There", 2018, author_o )
         bookslist = [book1, book2]
-        temp = [self.data_source.books("The", "title")]
-        self.assertTrue(temp.__contains__(bookslist))
+        print("bookslist", bookslist)
+        print("function return list", self.data_source.books("The", "title"))
+        self.assertEqual(bookslist, self.data_source.books("The", "title"))
 
 
     def test_booksbwyrs_return(self):
