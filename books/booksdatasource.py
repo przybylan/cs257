@@ -9,7 +9,7 @@
 
 import csv
 import operator
-
+from functools import cmp_to_key
 
 class Author:
     def __init__(self, surname='', given_name='', birth_year=None, death_year=None):
@@ -21,6 +21,12 @@ class Author:
     def __eq__(self, other):
         ''' For simplicity, we're going to assume that no two authors have the same name. '''
         return self.surname == other.surname and self.given_name == other.given_name
+
+    def __str__(self):
+        return f'Author({self.surname}, {self.given_name})'
+
+    def __repr__(self):
+        return f'Author({self.surname}, {self.given_name})'
 
 
 class Book:
@@ -65,12 +71,8 @@ class BooksDataSource:
             print("File has been read length of file = ", len(book_file))
         for line in csv.reader(book_file, quotechar='"', delimiter=",", skipinitialspace=True):
             print(line)
-            # print(line[2].split('-'))
             if self.prndbg:
                 print("Line in file before split : ", line)
-            # temp_split = line.split(",")
-            # for figuring out the author/authors of the book
-            # if 'and' in line[2]:
             if self.prndbg:
                 print("Line in temp_split[2] before split : ", line[2])
 
@@ -82,7 +84,6 @@ class BooksDataSource:
                 temp_auth_string = auth_info.split('(')
                 name = temp_auth_string[0].strip().split(" ")
                 first_name = ""
-                # for name_component in name[:-1]:
                 first_name = " ".join(name[:-1])
                 last_name = name[-1]
                 year_split = temp_auth_string[1].strip().strip(')').split('-')
@@ -137,6 +138,22 @@ class BooksDataSource:
         if self.prndbg:
             print(self.author_list)
 
+    def compare(self, auth1, auth2):
+
+        if auth1.surname > auth2.surname:
+            return 1
+
+        elif auth1.surname < auth2.surname:
+            return -1
+
+        elif auth1.surname == auth2.surname:
+            if auth1.given_name > auth2.given_name:
+                return 1
+            elif auth1.given_name < auth2.given_name:
+                return -1
+            else:
+                return 0
+
     def authors(self, search_text=None):
         ''' Returns a list of all the Author objects in this data source whose names contain
             (case-insensitively) the search text. If search_text is None, then this method
@@ -157,6 +174,11 @@ class BooksDataSource:
                     # author_name = author.given_name + author.surname
                     result_list.append(author)
 
+        result_list = sorted(result_list, key=cmp_to_key(self.compare))
+        # Sorting with the given name if surname is the same
+
+
+
         # if len(result_List) == 0:
         #     print("No authors were found")
         # else:
@@ -166,6 +188,21 @@ class BooksDataSource:
         #         print("\n", author.given_name, " ", author.surname)
 
         return result_list
+
+    def book_compare_yr(self, book1, book2):
+
+        if book1.publication_year > book2.publication_year:
+            return 1
+        elif book1.publication_year < book2.publication_year:
+            return -1
+        elif book1.publication_year == book2.publication_year:
+            if book1.title > book2.title :
+                return 1
+            elif book1.title < book2.title:
+                return -1
+            else:
+                return 0
+
 
     def books(self, search_text=None, sort_by='title'):
         ''' Returns a list of all the Book objects in this data source whose
@@ -197,6 +234,7 @@ class BooksDataSource:
 
         return new_book_list
 
+
     def books_between_years(self, start_year=None, end_year=None):
         ''' Returns a list of all the Book objects in this data source whose publication
             years are between start_year and end_year, inclusive. The list is sorted
@@ -211,20 +249,20 @@ class BooksDataSource:
         new_book_list = []
         if start_year != None and end_year != None:
             for book in self.book_list:
-                if book.publication_year >= start_year and book.publication_year <= end_year:
+                if int(book.publication_year) >= start_year and int(book.publication_year) <= end_year:
                     new_book_list.append(book)
         elif start_year != None:
             for book in self.book_list:
-                if book.publication_year >= start_year:
+                if int(book.publication_year) >= start_year:
                     new_book_list.append(book)
         elif end_year != None:
             for book in self.book_list:
-                if book.publication_year <= end_year:
+                if int(book.publication_year) <= end_year:
                     new_book_list.append(book)
         else:
             for book in self.book_list:
                 new_book_list.append(book)
 
-        new_book_list.sort(key=book.publication_year)
+        new_book_list = sorted(new_book_list, key=cmp_to_key(self.book_compare_yr))
 
         return new_book_list
