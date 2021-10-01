@@ -13,7 +13,7 @@ import unittest
 class BooksDataSourceTester(unittest.TestCase):
 
     def setUp(self):
-        self.data_source = booksdatasource.BooksDataSource('myfile.csv')
+        self.data_source = booksdatasource.BooksDataSource('books1.csv')
 
     def tearDown(self):
         pass
@@ -30,11 +30,11 @@ class BooksDataSourceTester(unittest.TestCase):
 
     # Checks that the return of an unspecified call to author returns all the
     def test_authors_return_full(self):
-        auth1 = booksdatasource.Author("Baldwin", "James", 1924, 1987)
-        auth2 = booksdatasource.Author("Brontë", "Charlotte", 1816, 1855)
-        auth3 = booksdatasource.Author("Brontë", "Ann", 1820, 1849)
-        authors = [auth1, auth3, auth2]
-        self.assertEqual(authors, self.data_source.authors())
+       # auth1 = booksdatasource.Author("Baldwin", "James", 1924, 1987)
+       # auth2 = booksdatasource.Author("Brontë", "Charlotte", 1816, 1855)
+       # auth3 = booksdatasource.Author("Brontë", "Ann", 1820, 1849)
+       # authors = [auth1, auth3, auth2]
+        self.assertEqual(22, len(self.data_source.authors()))
 
     def test_author_return_value(self):
         auth1 = booksdatasource.Author("Baldwin", "James", 1924, 1987)
@@ -49,11 +49,9 @@ class BooksDataSourceTester(unittest.TestCase):
 
     def test_author_order(self):
 
-        auth1 = booksdatasource.Author("Brontë", "David", 1111,)
-        auth2 = booksdatasource.Author("Brontë", "Shreya", 1, 2)
-        auth3 = booksdatasource.Author("Brontë", "Charlotte", 1816, 1855)
-        auth4 = booksdatasource.Author("Brontë", "Ann", 1820, 1849)
-        authors = [auth4, auth3, auth1, auth2]
+        auth1 = booksdatasource.Author("Brontë", "Charlotte", 1816, 1855)
+        auth2 = booksdatasource.Author("Brontë", "Ann", 1820, 1849)
+        authors = [auth2, auth1]
         print("authors list ", authors)
         print("function return list ", self.data_source.authors("Brontë"))
         # if length is the same then compare by checking the object eq
@@ -91,16 +89,16 @@ class BooksDataSourceTester(unittest.TestCase):
         self.assertEqual(bookslist, self.data_source.books("The Fire Next Time", "title"))
 
     def test_book_order(self):
-        auth1 = booksdatasource.Author("Baldwin", "James", 1924, 1987)
+        auth1 = booksdatasource.Author("Christie", "Agatha", 1890, 1976)
         auth2 = booksdatasource.Author("Orange", "Tommy", 1982)
-        author_b = [auth1]
+        author_c = [auth1]
         author_o = [auth2]
-        book1 = booksdatasource.Book("The Fire Next Time", 1963, author_b)
-        book2 = booksdatasource.Book("There, There", 2018, author_o )
+        book1 = booksdatasource.Book("And Then There Were None", 1939, author_c)
+        book2 = booksdatasource.Book("There, There", 2018, author_o)
         bookslist = [book1, book2]
         print("bookslist", bookslist)
-        print("function return list", self.data_source.books("The", "title"))
-        self.assertEqual(bookslist, self.data_source.books("The", "title"))
+        print("function return list", self.data_source.books("There", "title"))
+        self.assertEqual(bookslist, self.data_source.books("There", "title"))
 
 
     def test_booksbwyrs_return(self):
@@ -121,7 +119,8 @@ class BooksDataSourceTester(unittest.TestCase):
         author_m = [auth2]
         book1 = booksdatasource.Book("Blackout", 2010, author_w)
         book2 = booksdatasource.Book("1Q84", 2009, author_m)
-        booklistyrs = [book2, book1]
+        book3 = booksdatasource.Book("All Clear", 2010, author_w)
+        booklistyrs = [book2, book3, book1]
         self.assertEqual(booklistyrs, self.data_source.books_between_years(2009, 2010))
 
 
