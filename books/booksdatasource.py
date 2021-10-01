@@ -101,7 +101,14 @@ class BooksDataSource:
                 if not year1:
                     year1 = None
                 new_author = Author(last_name, first_name, year1, year2)
-                self.author_list.append(new_author)
+                flag = False
+                for author in self.author_list:
+                    if author.__eq__(new_author):
+                        book_auth_list.append(author)
+                        flag = True
+                        break
+                if not flag:
+                    self.author_list.append(new_author)
                 book_auth_list.append(new_author)
 
             # else:
