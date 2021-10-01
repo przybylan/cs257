@@ -25,8 +25,8 @@ class Author:
     def __str__(self):
         return f'Author({self.surname}, {self.given_name})'
 
-    def __repr__(self):
-        return f'Author({self.surname}, {self.given_name})'
+    # def __repr__(self):
+    #     return f'Author({self.surname}, {self.given_name})'
 
 
 class Book:
@@ -60,7 +60,7 @@ class BooksDataSource:
             suitable instance variables for the BooksDataSource object containing
             a collection of Author objects and a collection of Book objects.
         '''
-        self.prndbg = True
+        self.prndbg = False
         book_info = []
         self.book_list = []
         self.author_list = []
@@ -70,7 +70,8 @@ class BooksDataSource:
         if self.prndbg:
             print("File has been read length of file = ", len(book_file))
         for line in csv.reader(book_file, quotechar='"', delimiter=",", skipinitialspace=True):
-            print(line)
+            if self.prndbg:
+                print(line)
             if self.prndbg:
                 print("Line in file before split : ", line)
             if self.prndbg:
