@@ -56,7 +56,18 @@ class Books:
                 return []
 
     def year_option(self, arguments):
-        return []
+        if sys.argv[3] == '-y' or sys.argv == '--year':
+            new_search_y = booksdatasource.BooksDataSource(sys.argv[2])
+            if sys.argv[4].isnumeric():
+                if len(sys.argv) == 5:
+                    results = new_search_y.books_between_years(sys.argv[4], None)
+                    return results
+                elif sys.argv[5].isnumeric():
+                    results = new_search_y.books_between_years(sys.argv[4], sys.argv[5])
+                    return results
+        else:
+            return []
+
     def print_books(self, results):
         for book in results:
             if self.prndbg:
@@ -113,8 +124,13 @@ if "--search" in sys.argv or "-s" in sys.argv:
                 sys.exit()
             else:
                 new_book_program.print_auth(results)
-        #elif sys.argv[3] == "-y" or sys.argv[3] == "--year":
-            #call the method, print handle empty/no results
+        elif sys.argv[3] == "-y" or sys.argv[3] == "--year":
+            results = new_book_program.year_option(sys.argv)
+            if len(results) == 0:
+                print("Sorry, no items came up with your search, please try again.")
+                sys.exit()
+            else:
+                new_book_program.print_books(results)
 
 else:
     print("Invalid syntax. Refer to usage statements using -h or --help and rerun")
