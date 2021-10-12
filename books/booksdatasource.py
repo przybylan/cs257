@@ -1,6 +1,4 @@
-#!/usr/bin/env python3
 '''
-    booksdatasource.py
     Jeff Ondich, 21 September 2021
 
     For use in the "books" assignment at the beginning of Carleton's
@@ -60,27 +58,27 @@ class BooksDataSource:
             suitable instance variables for the BooksDataSource object containing
             a collection of Author objects and a collection of Book objects.
         '''
-        self.prndbg = False
+        self.debug = False
         book_info = []
         self.book_list = []
         self.author_list = []
         book_auth_list = []
         with open(books_csv_file_name) as book_file:
             book_file = book_file.readlines()
-        if self.prndbg:
+        if self.debug:
             print("File has been read length of file = ", len(book_file))
         for line in csv.reader(book_file, quotechar='"', delimiter=",", skipinitialspace=True):
-            if self.prndbg:
+            if self.debug:
                 print(line)
-            if self.prndbg:
+            if self.debug:
                 print("Line in file before split : ", line)
-            if self.prndbg:
+            if self.debug:
                 print("Line in temp_split[2] before split : ", line[2])
 
             temp_split2 = line[2].split(' and ')
             book_auth_list = []
             for auth_info in temp_split2:
-                if self.prndbg:
+                if self.debug:
                     print("Line in temp_split2 before split : ", auth_info)
                 temp_auth_string = auth_info.split('(')
                 name = temp_auth_string[0].strip().split(" ")
@@ -90,13 +88,6 @@ class BooksDataSource:
                 year_split = temp_auth_string[1].strip().strip(')').split('-')
                 year1 = year_split[0]
                 year2 = year_split[1]
-                # author_str = temp_auth_string[0].split(" ")
-                # year1 = author_str[2][-1:]
-                # year2 = temp_auth_string[2][:-1]
-                # year1 = int(temp_auth_string[1][:3])
-                # year1 = temp_yr_string[0]
-                # year2 = temp_auth_string[1][5:-1]
-                # year2 = temp_yr_string[1][:-3]
                 if len(year2) == 0:
                     year2 = None
                 if not year1:
@@ -112,38 +103,9 @@ class BooksDataSource:
                     self.author_list.append(new_author)
                 book_auth_list.append(new_author)
 
-            # else:
-            #     temp_auth_string = line[2].split('(')
-            #     name = temp_auth_string[0].split(" ")
-            #     first_name = " "
-            #     for i in range(len(name) - 2):
-            #         first_name = first_name + name[i]
-            #     last_name = name[len(name) - 1]
-            #     year_split = temp_auth_string[1].split('-')
-            #     year1 = year_split[0]
-            #     year2 = year_split[1][:-3]
-            #     # temp_auth_string = auth_info.split('-')
-            #     # author_str = temp_auth_string[0].split(" ")
-            #     # year1 = author_str[2][-1:]
-            #     # year2 = temp_auth_string[2][:-1]
-            #     # first_name = ""
-            #     # while ''author_str[i]
-            #     #     first_name = first_name + name_split[i]
-            #     # last_name = name_split[len(name_split)-1]
-            #     # temp_yr_string = temp_auth_string[0].split("-")
-            #     # # year1 = int(temp_auth_string[1][:3])
-            #     # year1 = temp_yr_string[0]
-            #     # # year2 = temp_auth_string[1][5:-1]
-            #     # year2 = temp_yr_string[0][:-3]
-            #     # if len(year2) == 0:
-            #     #     year2 = None
-            #     new_author = Author(last_name, first_name, year1, year2)
-            #     self.author_list.append(new_author)
-            #     book_auth_list.append(new_author)
-
             new_book = Book(line[0], line[1], book_auth_list)
             self.book_list.append(new_book)
-        if self.prndbg:
+        if self.debug:
             print(self.author_list)
 
     def compare(self, auth1, auth2):
@@ -168,32 +130,18 @@ class BooksDataSource:
             returns all of the Author objects. In either case, the returned list is sorted
             by surname, breaking ties using given name (e.g. Ann Brontë comes before Charlotte Brontë).
         '''
-        # author_list
-        # book_list
         result_list = []
         if search_text is None:
             for author in self.author_list:
-                # author_name = author.given_name + author.surname
                 result_list.append(author)
 
         else:
             for author in self.author_list:
                 if search_text.lower() in author.given_name.lower() or search_text.lower() in author.surname.lower():
-                    # author_name = author.given_name + author.surname
                     result_list.append(author)
 
         result_list = sorted(result_list, key=cmp_to_key(self.compare))
         # Sorting with the given name if surname is the same
-
-
-
-        # if len(result_List) == 0:
-        #     print("No authors were found")
-        # else:
-        #     result_List.sorted()
-        #     print("Authors found for search : ", search_text, " are : ")
-        #     for author in result_List:
-        #         print("\n", author.given_name, " ", author.surname)
 
         return result_list
 
