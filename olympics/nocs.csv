@@ -1,0 +1,230 @@
+1,Afghanistan,AFG
+2,Curacao,AHO
+3,Albania,ALB
+4,Algeria,ALG
+5,Andorra,AND
+6,Angola,ANG
+7,Antigua,ANT
+8,Australia,ANZ
+9,Argentina,ARG
+10,Armenia,ARM
+11,Aruba,ARU
+12,American Samoa,ASA
+13,Australia,AUS
+14,Austria,AUT
+15,Azerbaijan,AZE
+16,Bahamas,BAH
+17,Bangladesh,BAN
+18,Barbados,BAR
+19,Burundi,BDI
+20,Belgium,BEL
+21,Benin,BEN
+22,Bermuda,BER
+23,Bhutan,BHU
+24,Bosnia and Herzegovina,BIH
+25,Belize,BIZ
+26,Belarus,BLR
+27,Czech Republic,BOH
+28,Boliva,BOL
+29,Botswana,BOT
+30,Brazil,BRA
+31,Bahrain,BRN
+32,Brunei,BRU
+33,Bulgaria,BUL
+34,Burkina Faso,BUR
+35,Central African Republic,CAF
+36,Cambodia,CAM
+37,Canada,CAN
+38,Cayman Islands,CAY
+39,Republic of Congo,CGO
+40,Chad,CHA
+41,Chile,CHI
+42,China,CHN
+43,Ivory Coast,CIV
+44,Cameroon,CMR
+45,Democratic Republic of the Congo,COD
+46,Cook Islands,COK
+47,Colombia,COL
+48,Comoros,COM
+49,Cape Verde,CPV
+50,Costa Rica,CRC
+51,Croatia,CRO
+52,Greece,CRT
+53,Cuba,CUB
+54,Cyprus,CYP
+55,Czech Republic,CZE
+56,Denmark,DEN
+57,Djibouti,DJI
+58,Dominica,DMA
+59,Dominican Republic,DOM
+60,Ecuador,ECU
+61,Egypt,EGY
+62,Eritrea,ERI
+63,El Salvador,ESA
+64,Spain,ESP
+65,Estonia,EST
+66,Ethiopia,ETH
+67,Russia,EUN
+68,Fiji,FIJ
+69,Finland,FIN
+70,France,FRA
+71,Germany,FRG
+72,Micronesia,FSM
+73,Gabon,GAB
+74,Gambia,GAM
+75,UK,GBR
+76,Guinea-Bissau,GBS
+77,Germany,GDR
+78,Georgia,GEO
+79,Equatorial Guinea,GEQ
+80,Germany,GER
+81,Ghana,GHA
+82,Greece,GRE
+83,Grenada,GRN
+84,Guatemala,GUA
+85,Guinea,GUI
+86,Guam,GUM
+87,Guyana,GUY
+88,Haiti,HAI
+89,China,HKG
+90,Honduras,HON
+91,Hungary,HUN
+92,Indonesia,INA
+93,India,IND
+94,Individual Olympic Athletes,IOA
+95,Iran,IRI
+96,Ireland,IRL
+97,Iraq,IRQ
+98,Iceland,ISL
+99,Israel,ISR
+100,"Virgin Islands, US",ISV
+101,Italy,ITA
+102,"Virgin Islands, British",IVB
+103,Jamaica,JAM
+104,Jordan,JOR
+105,Japan,JPN
+106,Kazakhstan,KAZ
+107,Kenya,KEN
+108,Kyrgyzstan,KGZ
+109,Kiribati,KIR
+110,South Korea,KOR
+111,Kosovo,KOS
+112,Saudi Arabia,KSA
+113,Kuwait,KUW
+114,Laos,LAO
+115,Latvia,LAT
+116,Libya,LBA
+117,Liberia,LBR
+118,Saint Lucia,LCA
+119,Lesotho,LES
+120,Lebanon,LIB
+121,Liechtenstein,LIE
+122,Lithuania,LTU
+123,Luxembourg,LUX
+124,Madagascar,MAD
+125,Malaysia,MAL
+126,Morocco,MAR
+127,Malaysia,MAS
+128,Malawi,MAW
+129,Moldova,MDA
+130,Maldives,MDV
+131,Mexico,MEX
+132,Mongolia,MGL
+133,Marshall Islands,MHL
+134,Macedonia,MKD
+135,Mali,MLI
+136,Malta,MLT
+137,Montenegro,MNE
+138,Monaco,MON
+139,Mozambique,MOZ
+140,Mauritius,MRI
+141,Mauritania,MTN
+142,Myanmar,MYA
+143,Namibia,NAM
+144,Malaysia,NBO
+145,Nicaragua,NCA
+146,Netherlands,NED
+147,Nepal,NEP
+148,Canada,NFL
+149,Nigeria,NGR
+150,Niger,NIG
+151,Norway,NOR
+152,Nauru,NRU
+153,New Zealand,NZL
+154,Oman,OMA
+155,Pakistan,PAK
+156,Panama,PAN
+157,Paraguay,PAR
+158,Peru,PER
+159,Philippines,PHI
+160,Palestine,PLE
+161,Palau,PLW
+162,Papua New Guinea,PNG
+163,Poland,POL
+164,Portugal,POR
+165,North Korea,PRK
+166,Puerto Rico,PUR
+167,Qatar,QAT
+168,Zimbabwe,RHO
+169,NA,ROT
+170,Romania,ROU
+171,South Africa,RSA
+172,Russia,RUS
+173,Rwanda,RWA
+174,Germany,SAA
+175,Samoa,SAM
+176,Serbia,SCG
+177,Senegal,SEN
+178,Seychelles,SEY
+179,Singapore,SGP
+180,Saint Kitts,SKN
+181,Sierra Leone,SLE
+182,Slovenia,SLO
+183,San Marino,SMR
+184,Solomon Islands,SOL
+185,Somalia,SOM
+186,Serbia,SRB
+187,Sri Lanka,SRI
+188,South Sudan,SSD
+189,Sao Tome and Principe,STP
+190,Sudan,SUD
+191,Switzerland,SUI
+192,Suriname,SUR
+193,Slovakia,SVK
+194,Sweden,SWE
+195,Swaziland,SWZ
+196,Syria,SYR
+197,Tanzania,TAN
+198,Czech Republic,TCH
+199,Tonga,TGA
+200,Thailand,THA
+201,Tajikistan,TJK
+202,Turkmenistan,TKM
+203,Timor-Leste,TLS
+204,Togo,TOG
+205,Taiwan,TPE
+206,Trinidad,TTO
+207,Tunisia,TUN
+208,Turkey,TUR
+209,NA,TUV
+210,United Arab Emirates,UAE
+211,Syria,UAR
+212,Uganda,UGA
+213,Ukraine,UKR
+214,NA,UNK
+215,Russia,URS
+216,Uruguay,URU
+217,USA,USA
+218,Uzbekistan,UZB
+219,Vanuatu,VAN
+220,Venezuela,VEN
+221,Vietnam,VIE
+222,Saint Vincent,VIN
+223,Vietnam,VNM
+224,Trinidad,WIF
+225,Yemen,YAR
+226,Yemen,YEM
+227,Yemen,YMD
+228,Serbia,YUG
+229,Zambia,ZAM
+230,Zimbabwe,ZIM
