@@ -4,7 +4,6 @@ import argparse
 import flask
 import json
 import psycopg2
-from config import password
 from config import database
 from config import user
 
@@ -13,7 +12,7 @@ app = flask.Flask(__name__)
 @app.route('/games')
 def get_games():
     try:
-        connection = psycopg2.connect(database=database, user=user, password=password)
+        connection = psycopg2.connect(database=database, user=user)
     except Exception as e:
         print(e)
         exit()
